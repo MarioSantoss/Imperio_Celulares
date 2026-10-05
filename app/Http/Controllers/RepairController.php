@@ -88,6 +88,23 @@ class RepairController extends Controller
         return to_route('repairs.index');
     }
 
+    public function notify(Repair $repair): RedirectResponse
+    {
+        Gate::authorize('update', $repair);
+        $repair->update(['notified_at' => now()]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Aviso registrado para este cliente.']);
+
+        return to_route('repairs.index');
+    }
+
+    public function receipt(Repair $repair): Response
+    {
+        Gate::authorize('view', $repair);
+
+        return Inertia::render('repairs/receipt', ['repair' => $repair->load('customer')]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

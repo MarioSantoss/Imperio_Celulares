@@ -1,0 +1,12 @@
+import { Head, Link } from '@inertiajs/react';
+import { ArrowLeft, Printer } from 'lucide-react';
+import { dashboard } from '@/routes';
+import { index as salesIndex } from '@/routes/sales';
+
+type Sale = { id: number; total: string; payment_method: string; sold_at: string; customer: { name: string; phone: string } | null; items: { quantity: number; unit_price: string; subtotal: string; product: { name: string } }[] };
+
+export default function Receipt({ sale }: { sale: Sale }) {
+    return <><Head title={`Recibo #${sale.id}`} /><div className="min-h-full bg-[#f7f8fa] p-4 sm:p-6 lg:p-8"><div className="mx-auto max-w-xl space-y-5"><div className="flex items-center justify-between print:hidden"><Link href={salesIndex()} className="inline-flex items-center gap-2 text-sm font-medium text-[#71808e]"><ArrowLeft className="size-4" />Voltar para vendas</Link><button onClick={() => window.print()} className="inline-flex items-center gap-2 rounded-lg bg-[#e2613f] px-4 py-2.5 text-sm font-semibold text-white"><Printer className="size-4" />Imprimir recibo</button></div><article className="rounded-xl border border-[#e5e8eb] bg-white p-8 shadow-sm print:border-0 print:shadow-none"><div className="text-center"><p className="text-sm font-medium text-[#e2613f]">Império Celulares</p><h1 className="mt-1 text-2xl font-semibold text-[#17212b]">Recibo de atendimento</h1><p className="mt-1 text-xs text-[#8995a0]">Venda #{sale.id} · {new Date(sale.sold_at).toLocaleString('pt-BR')}</p></div><div className="mt-8 border-y border-[#edf0f2] py-4 text-sm text-[#586675]"><p><strong>Cliente:</strong> {sale.customer?.name ?? 'Não informado'}</p><p className="mt-1"><strong>Telefone:</strong> {sale.customer?.phone ?? 'Não informado'}</p></div><div className="mt-6 space-y-3">{sale.items.map((item) => <div key={item.product.name} className="flex justify-between gap-4 text-sm"><span>{item.quantity}x {item.product.name}</span><span>R$ {Number(item.subtotal).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div>)}</div><div className="mt-6 flex justify-between border-t border-[#edf0f2] pt-4 text-lg font-semibold text-[#17212b]"><span>Total · {sale.payment_method}</span><span>R$ {Number(sale.total).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div></article></div></div></>;
+}
+
+Receipt.layout = { breadcrumbs: [{ title: 'Dashboard', href: dashboard() }, { title: 'Vendas', href: salesIndex() }] };

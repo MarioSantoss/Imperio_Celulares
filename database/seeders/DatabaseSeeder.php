@@ -17,26 +17,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
+        $users = collect([
             [
                 'name' => 'Mario',
                 'email' => 'mario@imperiocelulares.com',
                 'role' => 'proprietario',
-                'password' => 'Mario@123456',
+                'password' => env('SEED_OWNER_PASSWORD'),
             ],
             [
                 'name' => 'Cristina',
                 'email' => 'cristina@imperiocelulares.com',
                 'role' => 'gerente',
-                'password' => 'Cristina@123456',
+                'password' => env('SEED_MANAGER_PASSWORD'),
             ],
             [
                 'name' => 'Ladyla',
                 'email' => 'ladyla@imperiocelulares.com',
                 'role' => 'atendente',
-                'password' => 'Ladyla@123456',
+                'password' => env('SEED_ATTENDANT_PASSWORD'),
             ],
-        ];
+        ])->filter(fn (array $user): bool => filled($user['password']))->all();
 
         foreach ($users as $user) {
             User::updateOrCreate(

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['customer_id', 'user_id', 'device_model', 'device_identifier', 'service_type', 'part_model', 'service_value', 'status', 'notification_channel', 'estimated_completion_at', 'warranty_until', 'notes'])]
+#[Fillable(['customer_id', 'user_id', 'device_model', 'device_identifier', 'service_type', 'part_model', 'service_value', 'status', 'notification_channel', 'notified_at', 'estimated_completion_at', 'warranty_until', 'notes'])]
 class Repair extends Model
 {
     /** @use HasFactory<RepairFactory> */
@@ -20,6 +20,7 @@ class Repair extends Model
             'service_value' => 'decimal:2',
             'estimated_completion_at' => 'datetime',
             'warranty_until' => 'date',
+            'notified_at' => 'datetime',
         ];
     }
 
