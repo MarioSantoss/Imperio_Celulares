@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="650" viewBox="0 0 1040 650" role="img" aria-labelledby="title description">
+  <title id="title">DER do banco imperio_crud</title>
+  <desc id="description">Diagrama com clientes, usuários, vendas, produtos e itens de venda e suas chaves estrangeiras.</desc>
+  <defs>
+    <style>
+      .entity { fill: #fff; stroke: #243247; stroke-width: 2; rx: 8; }
+      .heading { fill: #173c67; }
+      .title { fill: #fff; font: 700 17px Arial, sans-serif; }
+      .field { fill: #172033; font: 14px Arial, sans-serif; }
+      .relation { fill: none; stroke: #52708e; stroke-width: 2; }
+      .label { fill: #364c64; font: 13px Arial, sans-serif; }
+      .key { font-weight: 700; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52708e" />
+    </marker>
+  </defs>
+  <rect width="1040" height="650" fill="#f3f6fa" />
+
+  <path class="relation" marker-end="url(#arrow)" d="M250 150 H355 V254 H410" />
+  <path class="relation" marker-end="url(#arrow)" d="M790 150 H685 V254 H630" />
+  <path class="relation" marker-end="url(#arrow)" d="M520 350 V415" />
+  <path class="relation" marker-end="url(#arrow)" d="M790 495 H685 V330 H630" />
+  <text class="label" x="290" y="140">1 : N</text>
+  <text class="label" x="704" y="140">1 : N</text>
+  <text class="label" x="530" y="395">1 : N (RESTRICT)</text>
+  <text class="label" x="696" y="485">1 : N (RESTRICT)</text>
+
+  <g transform="translate(40 70)">
+    <rect class="entity" width="210" height="160" />
+    <path class="heading" d="M8 0 H202 Q210 0 210 8 V38 H0 V8 Q0 0 8 0" />
+    <text class="title" x="16" y="25">customers</text>
+    <text class="field key" x="16" y="65">PK id</text>
+    <text class="field" x="16" y="91">name</text>
+    <text class="field" x="16" y="117">phone</text>
+    <text class="field" x="16" y="143">created_at, updated_at</text>
+  </g>
+
+  <g transform="translate(790 70)">
+    <rect class="entity" width="210" height="160" />
+    <path class="heading" d="M8 0 H202 Q210 0 210 8 V38 H0 V8 Q0 0 8 0" />
+    <text class="title" x="16" y="25">users</text>
+    <text class="field key" x="16" y="65">PK id</text>
+    <text class="field" x="16" y="91">name</text>
+    <text class="field" x="16" y="117">email (UNIQUE)</text>
+    <text class="field" x="16" y="143">created_at, updated_at</text>
+  </g>
+
+  <g transform="translate(410 210)">
+    <rect class="entity" width="220" height="180" />
+    <path class="heading" d="M8 0 H212 Q220 0 220 8 V38 H0 V8 Q0 0 8 0" />
+    <text class="title" x="16" y="25">sales</text>
+    <text class="field key" x="16" y="65">PK id</text>
+    <text class="field" x="16" y="91">FK customer_id (NULL)</text>
+    <text class="field" x="16" y="117">FK user_id (NULL)</text>
+    <text class="field" x="16" y="143">total, payment_method, status</text>
+    <text class="field" x="16" y="169">sold_at, created_at, updated_at</text>
+  </g>
+
+  <g transform="translate(790 415)">
+    <rect class="entity" width="210" height="160" />
+    <path class="heading" d="M8 0 H202 Q210 0 210 8 V38 H0 V8 Q0 0 8 0" />
+    <text class="title" x="16" y="25">products</text>
+    <text class="field key" x="16" y="65">PK id</text>
+    <text class="field" x="16" y="91">name</text>
+    <text class="field" x="16" y="117">brand</text>
+    <text class="field" x="16" y="143">created_at, updated_at</text>
+  </g>
+
+  <g transform="translate(410 415)">
+    <rect class="entity" width="220" height="180" />
+    <path class="heading" d="M8 0 H212 Q220 0 220 8 V38 H0 V8 Q0 0 8 0" />
+    <text class="title" x="16" y="25">sale_items</text>
+    <text class="field key" x="16" y="65">PK id</text>
+    <text class="field" x="16" y="91">FK sale_id (RESTRICT)</text>
+    <text class="field" x="16" y="117">FK product_id (RESTRICT)</text>
+    <text class="field" x="16" y="143">quantity, unit_price, subtotal</text>
+    <text class="field" x="16" y="169">created_at, updated_at</text>
+  </g>
+</svg>
